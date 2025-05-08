@@ -2,7 +2,7 @@
     --primary-color: #2563eb;
     --secondary-color: #1e40af;
     --text-color: #1f2937;
-    --background-color: #f8f9fa;
+    --background-color: #e6b800;
     --accent-color: #f3f4f6;
 }
 
@@ -15,7 +15,7 @@
 body {
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
-    color: var(--text-color);
+    color: #ffffff;
     background-color: var(--background-color);
 }
 
@@ -48,7 +48,7 @@ nav {
 .nav-links a {
     margin-left: 2rem;
     text-decoration: none;
-    color: var(--text-color);
+    color: #ffffff;
     font-weight: 500;
     transition: color 0.3s ease;
 }
@@ -72,7 +72,7 @@ h1 {
 
 .subtitle {
     font-size: 1.25rem;
-    color: #4b5563;
+    color: #ffffff;
     margin-bottom: 2.5rem;
     max-width: 600px;
     margin-left: auto;
