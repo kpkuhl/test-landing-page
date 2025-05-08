@@ -2,14 +2,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const notifyForm = document.getElementById('notify-form');
     
     if (notifyForm) {
-        notifyForm.addEventListener('submit', (e) => {
+        notifyForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = notifyForm.querySelector('input[type="email"]').value;
             
-            // Here you would typically send this to your backend
-            // For now, we'll just show a success message
-            alert(`Thanks for your interest! We'll notify you at ${email} when we launch.`);
-            notifyForm.reset();
+            try {
+                // Google Form submission URL
+                const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSfaQQztaN1iTRVYjLssNZbtVwzRON_BcYYD7U9bRbvvQLLM-Q/formResponse';
+                
+                // Create form data
+                const formData = new FormData();
+                formData.append('entry.1', email); // Replace with your form's entry ID if different
+                
+                // Submit to Google Form
+                const response = await fetch(formUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: formData
+                });
+                
+                // Show success message
+                alert('Thank you for your interest! We\'ll be in touch soon.');
+                notifyForm.reset();
+                
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                alert('There was an error submitting your email. Please try again.');
+            }
         });
     }
 
