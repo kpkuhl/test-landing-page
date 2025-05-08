@@ -39,6 +39,12 @@ nav {
     color: var(--primary-color);
 }
 
+.logo-img {
+    height: 40px;
+    width: auto;
+    display: block;
+}
+
 .nav-links a {
     margin-left: 2rem;
     text-decoration: none;
