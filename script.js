@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             try {
                 // Google Form submission URL
-                const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSfaQQztaN1iTRVYjLssNZbtVwzRON_BcYYD7U9bRbvvQLLM-Q/formResponse';
+                const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSfaQQztaN1iTRVYjLssNZbtVwzRON_BcYYD7U9bRbvvQLLM-Q/viewform?usp=pp_url';
                 
                 // Create form data
                 const formData = new FormData();
