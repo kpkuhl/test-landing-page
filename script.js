@@ -3,6 +3,19 @@ const supabaseUrl = 'https://ctlseuuhmtqyiwmkqjwy.supabase.co'
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0bHNldXVobXRxeWl3bWtxand5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY4MjU2NjksImV4cCI6MjA2MjQwMTY2OX0.KHM6daMqhI5P7KRECoBtjA6J7LWfDjWvpTYPGerkgyM'
 const supabase = supabase.createClient(supabaseUrl, supabaseKey)
 
+// Safari-compatible console logging
+function safeLog(message, data) {
+    try {
+        if (data) {
+            console.log(message, JSON.stringify(data));
+        } else {
+            console.log(message);
+        }
+    } catch (e) {
+        console.log(message);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const notifyForm = document.getElementById('notify-form');
     const statusMessage = document.getElementById('status-message');
@@ -11,7 +24,13 @@ document.addEventListener('DOMContentLoaded', () => {
         notifyForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('email-input').value;
-            console.log('Attempting to submit email:', email);
+            safeLog('Attempting to submit email:', email);
+            
+            // Show loading state
+            const submitButton = notifyForm.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.textContent;
+            submitButton.textContent = 'Submitting...';
+            submitButton.disabled = true;
             
             try {
                 // Insert the email into the subscribers table
@@ -22,11 +41,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     ]);
 
                 if (error) {
-                    console.error('Supabase error:', error);
+                    safeLog('Supabase error:', error);
                     throw error;
                 }
 
-                console.log('Successfully submitted email:', data);
+                safeLog('Successfully submitted email:', data);
                 // Show success message
                 statusMessage.textContent = 'Thank you for your interest! We\'ll be in touch soon.';
                 statusMessage.style.display = 'block';
@@ -34,10 +53,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 notifyForm.reset();
 
             } catch (error) {
-                console.error('Error submitting form:', error);
+                safeLog('Error submitting form:', error);
                 statusMessage.textContent = 'There was an error submitting your email. Please try again.';
                 statusMessage.style.display = 'block';
                 statusMessage.style.color = 'red';
+            } finally {
+                // Reset button state
+                submitButton.textContent = originalButtonText;
+                submitButton.disabled = false;
             }
         });
     }
