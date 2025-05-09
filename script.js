@@ -1,35 +1,44 @@
-// Your Google Cloud Project credentials
-const CLIENT_ID = 'YOUR_CLIENT_ID';
-const API_KEY = 'YOUR_API_KEY';
-const FORM_ID = '1FAIpQLSfaQQztaN1iTRVYjLssNZbtVwzRON_BcYYD7U9bRbvvQLLM-Q';
-
-// Initialize the Google API client
-function initClient() {
-    gapi.client.init({
-        apiKey: API_KEY,
-        clientId: CLIENT_ID,
-        discoveryDocs: ['https://forms.googleapis.com/$discovery/rest?version=v1'],
-        scope: 'https://www.googleapis.com/auth/forms'
-    }).then(() => {
-        console.log('Google API client initialized');
-    }).catch(error => {
-        console.error('Error initializing Google API client:', error);
-    });
-}
-
-// Load the Google API client
-gapi.load('client', initClient);
+// Initialize Supabase client
+const supabaseUrl = 'https://ctlseuuhmtqyiwmkqjwy.supabase.co'
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0bHNldXVobXRxeWl3bWtxand5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY4MjU2NjksImV4cCI6MjA2MjQwMTY2OX0.KHM6daMqhI5P7KRECoBtjA6J7LWfDjWvpTYPGerkgyM'
+const supabase = supabase.createClient(supabaseUrl, supabaseKey)
 
 document.addEventListener('DOMContentLoaded', () => {
     const notifyForm = document.getElementById('notify-form');
+    const statusMessage = document.getElementById('status-message');
     
     if (notifyForm) {
-        notifyForm.addEventListener('submit', (e) => {
-            // Let the form submit naturally
-            setTimeout(() => {
-                alert('Thank you for your interest! We\'ll be in touch soon.');
+        notifyForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email-input').value;
+            console.log('Attempting to submit email:', email);
+            
+            try {
+                // Insert the email into the subscribers table
+                const { data, error } = await supabase
+                    .from('subscribers')
+                    .insert([
+                        { email: email }
+                    ]);
+
+                if (error) {
+                    console.error('Supabase error:', error);
+                    throw error;
+                }
+
+                console.log('Successfully submitted email:', data);
+                // Show success message
+                statusMessage.textContent = 'Thank you for your interest! We\'ll be in touch soon.';
+                statusMessage.style.display = 'block';
+                statusMessage.style.color = 'green';
                 notifyForm.reset();
-            }, 1000);
+
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                statusMessage.textContent = 'There was an error submitting your email. Please try again.';
+                statusMessage.style.display = 'block';
+                statusMessage.style.color = 'red';
+            }
         });
     }
 
