@@ -73,13 +73,20 @@ nav {
     font-size: 1.5rem;
     font-weight: 700;
     animation: rainbow 3s infinite;
+    display: flex;
+    align-items: center;
 }
 
 .logo-img {
-    height: 150px;
+    max-height: 120px;
     width: auto;
     display: block;
     animation: float 3s ease-in-out infinite;
+    transition: transform 0.3s ease;
+}
+
+.logo-img:hover {
+    transform: scale(1.05);
 }
 
 .nav-links a {
@@ -209,6 +216,10 @@ footer {
 @media (max-width: 768px) {
     h1 {
         font-size: 2.5rem;
+    }
+
+    .logo-img {
+        max-height: 100px;
     }
 
     .form-group {
