@@ -1,7 +1,7 @@
 // Initialize Supabase client
 const supabaseUrl = 'https://ctlseuuhmtqyiwmkqjwy.supabase.co'
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0bHNldXVobXRxeWl3bWtxand5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY4MjU2NjksImV4cCI6MjA2MjQwMTY2OX0.KHM6daMqhI5P7KRECoBtjA6J7LWfDjWvpTYPGerkgyM'
-const supabase = supabase.createClient(supabaseUrl, supabaseKey)
+const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey)
 
 // Safari-compatible console logging
 function safeLog(message, data) {
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             try {
                 // Insert the email into the subscribers table
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('subscribers')
                     .insert([
                         { email: email }
