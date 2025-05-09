@@ -8,6 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Add Google API Client Library -->
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://accounts.google.com/gsi/client"></script>
 </head>
 <body>
     <div class="container">
@@ -30,11 +33,11 @@
 
             <section id="contact" class="contact">
                 <h2>Stay Updated</h2>
-                <form id="notify-form" class="notify-form" action="https://docs.google.com/forms/d/e/1FAIpQLSfaQQztaN1iTRVYjLssNZbtVwzRON_BcYYD7U9bRbvvQLLM-Q/formResponse" method="POST" target="hidden_iframe">
+                <form id="notify-form" class="notify-form" action="https://docs.google.com/forms/d/e/1FAIpQLSfaQQztaN1iTRVYjLssNZbtVwzRON_BcYYD7U9bRbvvQLLM-Q/formResponse" method="POST">
                     <input type="email" name="entry.2005620554" placeholder="Enter your email" required>
+                    <input type="hidden" name="submit" value="Submit">
                     <button type="submit" class="btn primary">Submit</button>
                 </form>
-                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
             </section>
         </main>
 
