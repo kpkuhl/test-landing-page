@@ -33,7 +33,10 @@
             <section id="contact" class="contact">
                 <h2>Stay Updated</h2>
                 <form id="notify-form" class="notify-form">
-                    <input type="email" id="email-input" placeholder="Enter your email" required>
+                    <div class="form-group">
+                        <input type="email" id="email-input" placeholder="Enter your email" required>
+                        <input type="text" id="zip-input" placeholder="Zip code (optional)" pattern="[0-9]{5}" maxlength="5">
+                    </div>
                     <button type="submit" class="btn primary">Submit</button>
                 </form>
                 <div id="status-message" style="display: none; margin-top: 1rem;"></div>

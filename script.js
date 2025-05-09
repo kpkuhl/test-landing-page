@@ -24,7 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
         notifyForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('email-input').value;
-            safeLog('Attempting to submit email:', email);
+            const zipCode = document.getElementById('zip-input').value;
+            safeLog('Attempting to submit:', { email, zipCode });
             
             // Show loading state
             const submitButton = notifyForm.querySelector('button[type="submit"]');
@@ -33,11 +34,14 @@ document.addEventListener('DOMContentLoaded', () => {
             submitButton.disabled = true;
             
             try {
-                // Insert the email into the subscribers table
+                // Insert the data into the subscribers table
                 const { data, error } = await supabaseClient
                     .from('subscribers')
                     .insert([
-                        { email: email }
+                        { 
+                            email: email,
+                            zip_code: zipCode || null // Only include zip code if it's not empty
+                        }
                     ]);
 
                 if (error) {
@@ -45,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     throw error;
                 }
 
-                safeLog('Successfully submitted email:', data);
+                safeLog('Successfully submitted:', data);
                 // Show success message
                 statusMessage.textContent = 'Thank you for your interest! We\'ll be in touch soon.';
                 statusMessage.style.display = 'block';
