@@ -14,12 +14,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 const formData = new FormData();
                 formData.append('entry.1', email);
                 
-                // Submit to Google Form
-                const response = await fetch(formUrl, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    body: formData
-                });
+                // Submit to Google Form using a hidden iframe
+                const iframe = document.createElement('iframe');
+                iframe.style.display = 'none';
+                document.body.appendChild(iframe);
+                
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = formUrl;
+                form.target = iframe.name;
+                
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'entry.1';
+                input.value = email;
+                
+                form.appendChild(input);
+                document.body.appendChild(form);
+                form.submit();
+                
+                // Clean up
+                setTimeout(() => {
+                    document.body.removeChild(form);
+                    document.body.removeChild(iframe);
+                }, 1000);
                 
                 // Show success message
                 alert('Thank you for your interest! We\'ll be in touch soon.');
