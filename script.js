@@ -24,7 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
         notifyForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('email-input').value;
-            const zipCode = document.getElementById('zip-input').value;
+            const zipCodeInput = document.getElementById('zip-input').value;
+            // Convert zip code to integer if it exists
+            const zipCode = zipCodeInput ? parseInt(zipCodeInput, 10) : null;
+            
             safeLog('Attempting to submit:', { email, zipCode });
             
             // Show loading state
@@ -40,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     .insert([
                         { 
                             email: email,
-                            zip_code: zipCode || null // Only include zip code if it's not empty
+                            zip_code: zipCode // This will be null if no zip code was entered
                         }
                     ]);
 
