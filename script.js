@@ -1,6 +1,6 @@
 // Initialize Supabase client
-const supabaseUrl = 'https://ctlseuuhmtqyiwmkqjwy.supabase.co';
-const supabaseKey = window.__SUPABASE_ANON_KEY__;
+const supabaseUrl = window.SUPABASE_CONFIG.url;
+const supabaseKey = window.SUPABASE_CONFIG.anonKey;
 
 // Debug logging
 console.log('Environment check:', {
