@@ -1,6 +1,17 @@
 // Initialize Supabase client
 const supabaseUrl = 'https://ctlseuuhmtqyiwmkqjwy.supabase.co';
 const supabaseKey = process.env.SUPABASE_ANON_KEY;
+
+// Debug logging
+console.log('Environment check:', {
+    hasSupabaseKey: !!supabaseKey,
+    keyLength: supabaseKey ? supabaseKey.length : 0,
+    url: supabaseUrl
+});
+
+if (!supabaseKey) {
+    console.error('Supabase anon key is not set');
+}
 const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 // Safari-compatible console logging
