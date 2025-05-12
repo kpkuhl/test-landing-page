@@ -36,10 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const email = document.getElementById('email-input').value;
             const zipCodeInput = document.getElementById('zip-input').value;
-            // Convert zip code to integer if it exists
-            const zipCode = zipCodeInput ? parseInt(zipCodeInput, 10) : null;
             
-            safeLog('Attempting to submit:', { email, zipCode });
+            safeLog('Attempting to submit:', { email, zipCode: zipCodeInput });
             
             // Show loading state
             const submitButton = notifyForm.querySelector('button[type="submit"]');
@@ -48,22 +46,24 @@ document.addEventListener('DOMContentLoaded', () => {
             submitButton.disabled = true;
             
             try {
-                // Insert the data into the subscribers table
-                const { data, error } = await supabaseClient
-                    .from('subscribers')
-                    .insert([
-                        { 
-                            email: email,
-                            zip_code: zipCode // This will be null if no zip code was entered
-                        }
-                    ]);
+                const response = await fetch('/api/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email,
+                        zipCode: zipCodeInput
+                    })
+                });
 
-                if (error) {
-                    safeLog('Supabase error:', error);
-                    throw error;
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.error || 'Failed to submit form');
                 }
 
-                safeLog('Successfully submitted:', data);
+                safeLog('Successfully submitted:', result);
                 // Show success message
                 statusMessage.textContent = 'Thank you for your interest! We\'ll be in touch soon.';
                 statusMessage.style.display = 'block';
