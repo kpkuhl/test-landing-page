@@ -1,6 +1,6 @@
 // Initialize Supabase client
-const supabaseUrl = window.env?.SUPABASE_URL || '';
-const supabaseKey = window.env?.SUPABASE_ANON_KEY || '';
+const supabaseUrl = 'https://ctlseuuhmtqyiwmkqjwy.supabase.co';
+const supabaseKey = process.env.SUPABASE_ANON_KEY;
 const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 // Safari-compatible console logging
