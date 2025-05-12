@@ -1,7 +1,7 @@
 // Initialize Supabase client
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 
-
+const supabaseUrl = process.env.SUPABASE_URL || '';
+const supabaseKey = process.env.SUPABASE_ANON_KEY || '';
+const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 // Safari-compatible console logging
 function safeLog(message, data) {
